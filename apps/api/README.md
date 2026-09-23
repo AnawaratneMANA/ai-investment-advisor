@@ -40,3 +40,13 @@ python -m pytest
 
 Set `DATABASE_URL` to the PostgreSQL URL from Docker Compose when running against the service.
 Without it, the development default is a local SQLite file.
+
+Inside the backend container, the working directory is already `apps/api`, so run migrations with:
+
+```bash
+docker compose exec backend alembic upgrade head
+```
+
+For a deployed environment, set a strong `AUTH_SECRET_KEY` and the browser origin in
+`WEB_ORIGIN`. The session token is stored in an HttpOnly cookie and is never returned to the
+browser as readable application data.

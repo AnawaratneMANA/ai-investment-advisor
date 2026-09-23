@@ -18,6 +18,11 @@ class Settings(BaseSettings):
     debug: bool = Field(default=False, validation_alias="APP_DEBUG")
     database_url: str = "sqlite:///./investment_advisor.db"
     redis_url: str | None = None
+    auth_secret_key: str = "development-only-change-this-secret"
+    session_cookie_name: str = "investment_advisor_session"
+    session_expire_minutes: int = 60
+    cookie_secure: bool = False
+    web_origin: str = "http://localhost:3000"
 
     model_config = SettingsConfigDict(
         env_file=".env",

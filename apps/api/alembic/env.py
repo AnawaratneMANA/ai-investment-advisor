@@ -8,6 +8,8 @@ from sqlalchemy import engine_from_config, pool
 from app.core.config import get_settings
 from app.core.logging import configure_logging
 from app.db.base import Base
+from app.db.session import normalize_database_url
+from app.models import User  # noqa: F401 - registers models for metadata discovery
 
 
 config = context.config
@@ -16,7 +18,8 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 configure_logging(get_settings().log_level)
-config.set_main_option("sqlalchemy.url", get_settings().database_url.replace("%", "%%"))
+database_url = normalize_database_url(get_settings().database_url)
+config.set_main_option("sqlalchemy.url", database_url.replace("%", "%%"))
 target_metadata = Base.metadata
 
 
@@ -43,4 +46,3 @@ if context.is_offline_mode():
     run_migrations_offline()
 else:
     run_migrations_online()
-
