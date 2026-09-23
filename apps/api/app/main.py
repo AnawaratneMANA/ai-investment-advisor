@@ -9,3 +9,9 @@ app = FastAPI(
     description="Backend foundation for the AI Investment Advisor.",
 )
 
+
+@app.get("/api/v1/health", tags=["system"])
+def health() -> dict[str, str]:
+    """Return a minimal service liveness response."""
+
+    return {"status": "ok"}
