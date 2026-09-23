@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY apps/api/pyproject.toml apps/api/pyproject.toml
 COPY apps/api/app apps/api/app
+COPY apps/api/alembic.ini apps/api/alembic.ini
+COPY apps/api/alembic apps/api/alembic
 
 RUN pip install --no-cache-dir ./apps/api
 
