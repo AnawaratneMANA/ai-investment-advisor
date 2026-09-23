@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     # Use an application-specific name so unrelated shell variables such as DEBUG=release do
     # not change or invalidate API startup.
     debug: bool = Field(default=False, validation_alias="APP_DEBUG")
-    database_url: str | None = None
+    database_url: str = "sqlite:///./investment_advisor.db"
     redis_url: str | None = None
 
     model_config = SettingsConfigDict(
