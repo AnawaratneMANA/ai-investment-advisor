@@ -1,10 +1,12 @@
 import { AppShell } from "@/components/app-shell";
+import { ProtectedShell } from "@/components/protected-shell";
 import { Button } from "@/components/ui/button";
 
 export default function HomePage() {
   return (
-    <AppShell>
-      <div className="mx-auto max-w-7xl space-y-8">
+    <ProtectedShell>
+      <AppShell>
+        <div className="mx-auto max-w-7xl space-y-8">
         <section className="space-y-3">
           <p className="text-sm font-medium text-primary">Research workspace</p>
           <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Good research starts with evidence.</h1>
@@ -40,7 +42,8 @@ export default function HomePage() {
             next foundation tasks are completed.
           </p>
         </section>
-      </div>
-    </AppShell>
+        </div>
+      </AppShell>
+    </ProtectedShell>
   );
 }

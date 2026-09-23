@@ -18,6 +18,8 @@ services:
     environment:
       APP_ENV: ${APP_ENV:-development}
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      AUTH_SECRET_KEY: ${AUTH_SECRET_KEY:-development-only-change-this-secret}
+      WEB_ORIGIN: ${WEB_ORIGIN:-http://localhost:3000,http://127.0.0.1:3000}
       DATABASE_URL: postgresql://${POSTGRES_USER:-investment_advisor}:${POSTGRES_PASSWORD:-change-me-locally}@postgres:5432/${POSTGRES_DB:-investment_advisor}
       REDIS_URL: redis://redis:6379/0
     ports:

@@ -1,5 +1,9 @@
-import Link from "next/link";
+"use client";
 
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+import { useAuth } from "@/components/auth-provider";
 import { Button } from "@/components/ui/button";
 
 const navigation = [
@@ -11,6 +15,14 @@ const navigation = [
 ];
 
 export function AppShell({ children }: Readonly<{ children: React.ReactNode }>) {
+  const router = useRouter();
+  const { user, logout } = useAuth();
+
+  async function handleLogout() {
+    await logout();
+    router.replace("/login");
+  }
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <aside className="fixed inset-y-0 left-0 hidden w-64 border-r border-border bg-card lg:flex lg:flex-col">
@@ -50,8 +62,8 @@ export function AppShell({ children }: Readonly<{ children: React.ReactNode }>) 
               <Button variant="outline" size="sm">
                 Configure AI
               </Button>
-              <Button variant="ghost" size="sm" aria-label="Open user menu">
-                Account
+              <Button variant="ghost" size="sm" onClick={handleLogout} aria-label="Log out">
+                {user?.email ?? "Account"} · Log out
               </Button>
             </div>
           </div>
@@ -77,4 +89,3 @@ export function AppShell({ children }: Readonly<{ children: React.ReactNode }>) 
     </div>
   );
 }
-

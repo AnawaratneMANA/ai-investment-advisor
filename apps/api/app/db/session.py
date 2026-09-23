@@ -1,6 +1,6 @@
 """SQLAlchemy engine and session infrastructure."""
 
-from collections.abc import Generator
+from collections.abc import AsyncGenerator
 from functools import lru_cache
 
 from sqlalchemy import create_engine
@@ -34,7 +34,7 @@ def get_session_factory() -> sessionmaker[Session]:
     return sessionmaker(bind=get_engine(), autoflush=False, autocommit=False, expire_on_commit=False)
 
 
-def get_db_session() -> Generator[Session, None, None]:
+async def get_db_session() -> AsyncGenerator[Session, None]:
     """Yield a database session and always close it after the request."""
 
     session = get_session_factory()()
@@ -42,4 +42,3 @@ def get_db_session() -> Generator[Session, None, None]:
         yield session
     finally:
         session.close()
-
